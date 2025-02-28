@@ -1,1 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Portfolio</title>
+    <style>
+        body {
+            font-family: arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ededf3;
+            overflow-x: hidden;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        header {
+            background: linear-gradient(135deg, #0044cc, #00cc99);
+            color: rgba(9, 26, 91, 0.711);
+            padding: 1rem 0;
+            text-align: center;
+            animation: fadeInDown 1s ease;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #1881eb;
+            padding: 0.5rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        nav a {
+            color: rgb(254, 252, 252);
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+            transition: 0.3s;
+            position: relative;
+        }
+        nav a::after {
+            content: "";
+            width: 0;
+            height: 3px;
+            background: #00ffcc;
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            transition: 0.4s;
+        }
+        nav a:hover {
+            color: #00ffcc;
+        }
+        nav a:hover::after {
+            width: 100%;
+        }
+        section {
+            padding: 3rem 2rem;
+            background: white;
+            margin: 20px auto;
+            max-width: 1100px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        button {
+            background-color: #0044cc;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        button:hover {
+            background-color: #00cc99;
+            transform: scale(1.05);
+        }
+        h2 {
+            color: #0044cc;
+            font-size: 2rem;
+        }
+        .skills .progress {
+            background: #ddd;
+            height: 20px;
+            border-radius: 10px;
+            margin: 10px 0;
+        }
+        .progress-fill {
+            height: 100%;
+            background-color: #0044cc;
+            width: 0;
+            animation: fillProgress 2s forwards;
+        }
+        @keyframes fillProgress {
+            to { width: 90%; }
+        }
+        .experience-card {
+            background: #f9f9ff;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 5px solid #0044cc;
+            transition: transform 0.3s;
+        }
+        .experience-card:hover {
+            transform: scale(1.05);
+        }
+        .slideshow-container {
+            width: 100%;
+            overflow: hidden;
+        }
+        .slide {
+            width: 100%;
+            display: none;
+            height: 300px;
+            object-fit: cover;
+        }
+        .dark-mode {
+            background-color: #121212;
+            color: #fff;
+        }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .gallery-carousel {
+    overflow-x: auto;
+    white-space: nowrap;
+    scroll-behavior: smooth;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 10px 0;
+}
 
+.gallery-wrapper {
+    display: inline-flex;
+    gap: 15px;
+    padding: 10px;
+}
+
+.gallery-image 
+{
+    width: 200px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.3s, filter 0.3s;
+}
+
+.gallery-image:hover {
+    transform: scale(1.1);
+}
+
+/* Dark Mode Support */
+.dark-mode .gallery-carousel {
+    background-color: #222;
+}
+.dark-mode .gallery-image {
+    filter: brightness(0.8);
+}
+.dark-mode .gallery-image:hover {
+    filter: brightness(1);
+}
+
+
+/* Fullscreen popup styles */
+.fullscreen-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.9);
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.fullscreen-overlay img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 12px;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
+}
+
+.fullscreen-overlay.show {
+    display: flex;
+}
+        footer 
+       {
+            background: #003399;
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+            margin-top: 20px;
+        }
+        #favorite-book {
+    padding: 3rem 2rem;
+    background: white;
+    margin: 20px auto;
+    max-width: 1100px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    transition: background-color 0.3s, color 0.3s;
+}
+#favorite-book h2 {
+    color: #0044cc;
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
+.book-card {
+    display: flex;
+    align-items: center;
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+}
+.book-card:hover {
+    transform: scale(1.03);
+}
+.book-cover {
+    width: 120px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-right: 20px;
+}
+.book-info h3 {
+    color: #003366;
+    margin: 0;
+}
+.book-info p {
+    color: #555;
+    margin: 5px 0;
+}
+.dark-mode #favorite-book {
+    background-color: #222;
+    color: #fff;
+}
+.dark-mode .book-card {
+    background-color: #333;
+}
+.dark-mode .book-info h3, 
+.dark-mode .book-info p {
+    color: #ddd;
+}
+.dark-mode {
+    background-color: #121212;
+    color: #f0f0f0;
+}
+
+/* Sections (applies to all content boxes) */
+.dark-mode section {
+    background-color: #1e1e1e;
+    color: #f0f0f0;
+}
+
+/* Header */
+.dark-mode header {
+    background: linear-gradient(135deg, #002266, #006666);
+    color: #f0f0f0;
+}
+
+/* Navigation bar */
+.dark-mode nav {
+    background-color: #001f3f;
+}
+.dark-mode nav a {
+    color: #f0f0f0;
+}
+.dark-mode nav a:hover {
+    color: #00ffcc;
+}
+
+/* Skill & Experience Cards */
+.dark-mode .experience-card {
+    background-color: #2a2a2a;
+    color: #f0f0f0;
+}
+
+/* Favorite Book Section */
+.dark-mode #favorite-book {
+    background-color: #2a2a2a;
+}
+.dark-mode .book-card {
+    background-color: #333;
+}
+.dark-mode .book-info h3,
+.dark-mode .book-info p {
+    color: #f0f0f0;
+}
+
+/* Basic Carousel */
+.gallery-carousel {
+    overflow-x: auto;
+    white-space: nowrap;
+    scroll-behavior: smooth;
+    padding: 10px 0;
+    background: #f9f9f9;
+}
+
+.gallery-wrapper {
+    display: inline-flex;
+    gap: 15px;
+}
+
+.gallery-image {
+    width: 200px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+/* Optional Hover Effect */
+.gallery-image:hover {
+    transform: scale(1.05);
+}
+
+/* Fullscreen Viewer */
+#fullscreenViewer {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+#fullscreenImg {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 10px;
+}
+
+/* Optional Dark Mode (if you want) */
+.dark-mode .gallery-carousel {
+    background-color: #222;
+}
+
+
+/* Footer */
+.dark-mode footer {
+    background-color: #001f3f;
+}
+
+/* Contact Section Inputs */
+.dark-mode input, 
+.dark-mode textarea {
+    background-color: #333;
+    color: #f0f0f0;
+    border: 1px solid #555;
+}
+.dark-mode button {
+    background-color: #0055aa;
+}
+
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>I am <span class="typing-text"></span></h1>
+        <button onclick="toggleDarkMode()">🌙 Toggle Dark Mode</button>
+    </header>
+
+    <nav>
+        <a href="#about">About Me</a>
+        <a href="#skills">Skills</a>
+        <a href="#experience">Experience</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <section id="about">
+        <h2>About Me</h2>
+        <p><img src="images/profile-pic.png" alt="Your Picture" style="float: right; width: 200px; border-radius: 8px; margin-left: 20px;">
+        Welcome to my <b>digital universe</b>! I'm <b>ADHITHYA</b>, a tech enthusiast, space dreamer, and science explorer.<br> My journey started with a deep curiosity about how technology works and how it can transform the future. Over time, that curiosity expanded into a passion for space exploration and scientific innovation.<br>
+             <br>Currently, I'm pursuing my B.Com with a specialization in Python and AI, blending my love for technology with practical learning. But my true calling goes far beyond textbooks and degrees — I want to build, innovate, and create technologies that shape the future.<br>
+            <br>This website is my personal innovation hub — a place where I share my projects, thoughts, and discoveries across technology, space, and science. Whether it's a new AI tool I'm developing, my thoughts on the future of space travel, or scientific breakthroughs that excite me — you'll find it all here. <br>Why This Website Exists
+<br>Im not here just to follow trends. I want to create something that matters — solutions that help society, innovations that push boundaries, and ideas that spark imagination.
+This platform will evolve with me, showcasing:<br>
+<b>
+🚀 My personal tech projects<br>
+🌌 Blogs and articles on futuristic tech, space science, and cutting-edge research<br>
+🛠️ Tools, code snippets, and resources for fellow innovators<br>
+🎙️ (Future idea) A podcast where I talk about space, science, and tech with experts and enthusiasts<br>
+ </b>       
+        
+       </p>
+        <button onclick="alert('Thanks for visiting my portfolio!')">Say Hi!</button>
+    </section>
+
+    <section id="education">
+        <h2>Education</h2>
+        <p><strong>Bachelor of Commerce (B.Com) - Computer Science & AI</strong></p>
+        <p>Sri Bhagawan Mahaveer Jain College, KGF</p>
+    </section>
+    <section id="vision">
+        <h2>Vision</h2>
+        <p><strong>To inspire, innovate, and impact — using technology to create a better, smarter, and more sustainable future.</strong></p>
+    </section>
+    
+    <section id="favorite-book">
+        <h2>My Favorite Book</h2>
+        <div class="book-card">
+            <img src="book-cover.jpg" alt="Book Cover" class="book-cover">
+            <div class="book-info">
+                <h3>Book Name: Psycho-Cybernetics</h3>
+                <p>Author: Maxwell Malts</p>
+                <p>This book taught me about dreams, destiny, and the beauty of chasing what truly matters in life.</p>
+            </div>
+        </div>
+    </section>
+    
+
+    <section class="skills" id="skills">
+        <h2>Skills</h2>
+        <div class="experience-card">
+            <h3>HTML & CSS</h3>
+            <p>Proficiency: 90%</p>
+        </div>
+        <div class="experience-card">
+            <h3>Python & AI</h3>
+            <p>Proficiency: 80%</p>
+        </div>
+        <div class="experience-card">
+            <h3>Data Analysis</h3>
+            <p>Proficiency: 85%</p>
+        </div>
+        <div class="experience-card">
+            <h3>Cloud Computing</h3>
+            <p>Proficiency: 70%</p>
+        </div>
+    </section>
+    
+
+    <section class="experience" id="experience">
+        <h2>Experience</h2>
+        <div class="experience-card">
+            <h3>BEML Ltd</h3>
+            <p>Intern - Technology Integration & Predictive Maintenance</p>
+        </div>
+        <div class="experience-card">
+            <h3>IBM & Microsoft Certifications</h3>
+            <p>Completed certifications in AI, Data Science</p>
+        </div>
+    </section>
+    <section id="gallery">
+        <h2>My Works & Achievements</h2>
+        <div class="gallery-carousel">
+            <div class="gallery-wrapper">
+                <img src="/Users/adhithya/Desktop/graph.jpg" class="gallery-image" alt="Achievement 1" onclick="openImage(this)">
+                <img src="/Users/adhithya/Desktop/javacerti.jpg" class="gallery-image" alt="Certificate 1" onclick="openImage(this)">
+                <img src="/Users/adhithya/Desktop/graph.jpg" class="gallery-image" alt="Project 1" onclick="openImage(this)">
+                <img src="/Users/adhithya/Desktop/javacerti.jpg" class="gallery-image" alt="Certificate 2" onclick="openImage(this)">
+                <img src="/Users/adhithya/Desktop/graph.jpg" class="gallery-image" alt="Project 2" onclick="openImage(this)">
+            </div>
+        </div>
+    
+        <!-- Fullscreen View -->
+        <div id="fullscreenViewer" onclick="closeImage()">
+            <img id="fullscreenImg" src="">
+        </div>
+    </section>
+    
+
+    <div id="fullscreenOverlay" onclick="closeFullscreen()">
+        <img id="fullscreenImage">
+    </div>
+    
+    <!-- Fullscreen Popup Viewer -->
+    <div class="fullscreen-overlay" id="fullscreenOverlay">
+        <img src="" id="fullscreenImage">
+    </div>
+    
+
+    <section id="contact">
+        <h2>Contact Me</h2>
+        <form>
+            <input type="text" placeholder="Your Name"><br>
+            <input type="email" placeholder="Your Email"><br>
+            <textarea placeholder="Your Message"></textarea><br>
+            <button type="submit">Send Message</button>
+        </form>
+        <p>Connect with me:</p>
+        <a href="https://linkedin.com/in/yourprofile">LinkedIn</a> |
+        <a href="https://github.com/yourprofile">GitHub</a>
+    </section>
+    <section id="contact">
+        <h2>Contact Information</h2>
+        <p>If you share the same passion for technology, space, and science — let's collaborate and build something extraordinary! </p>
+        <p>Email: seenuadhithya@gmail.com</p>
+        <p>LinkedIn: <a href="https://www.linkedin.com/in/s-adhithya-7a6a6a21a/" target="_blank">linkedin.com/in/yourprofile</a></p>
+    </section>
+
+    <script>
+        // Typing effect
+        const words = ["Adhithya", "", "a Tech Enthusiast."];
+        let i = 0, j = 0;
+        function typeEffect() {
+            let text = words[i].substring(0, j+1);
+            document.querySelector('.typing-text').innerText = text;
+            j++;
+            if (j === words[i].length + 1) {
+                setTimeout(() => { j = 0; i = (i+1) % words.length; }, 1000);
+            }
+            setTimeout(typeEffect, 100);
+        }
+        typeEffect();
+
+        // Slideshow
+        let slideIndex = 0;
+        function showSlides() {
+            const slides = document.querySelectorAll('.slide');
+            slides.forEach(slide => slide.style.display = 'none');
+            slideIndex = (slideIndex + 1) % slides.length;
+            slides[slideIndex].style.display = 'block';
+            setTimeout(showSlides, 3000);
+        }
+        showSlides();
+
+        // Dark mode toggle
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+        }
+    </script>
+    
+<script>
+    function openImage(imgElement) {
+    const fullscreenViewer = document.getElementById('fullscreenViewer');
+    const fullscreenImg = document.getElementById('fullscreenImg');
+
+    fullscreenImg.src = imgElement.src;
+    fullscreenViewer.style.display = 'flex';
+}
+
+function closeImage() {
+    document.getElementById('fullscreenViewer').style.display = 'none';
+}
+
+ </script>
+        <footer>
+            &copy; 2025 Adhithya| All Rights Reserved
+        </footer>
+
+</body>
+</html>
